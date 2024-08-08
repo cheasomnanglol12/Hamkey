@@ -3,34 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo Code Generator</title>
+    <title>Telegram Themed Loading</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Promo Code Generator</h1>
-        
-        <!-- Dropdown menu for selecting game -->
-        <select id="game-select" class="select-menu">
-            <option value="" disabled selected>Select a game</option>
-            <option value="BIKE">BIKE</option>
-            <option value="CLONE">CLONE</option>
-            <option value="CUBE">CUBE</option>
-            <option value="TRAIN">TRAIN</option>
-        </select>
-
-        <!-- Input for number of codes -->
-        <label for="code-count">Number of codes:</label>
-        <input id="code-count" type="number" min="1" max="10" value="4" class="number-input">
-        
-        <!-- Button to generate promo codes -->
-        <button id="generate-btn" class="btn" disabled>Generate Promo Codes</button>
-
-        <!-- Loading message -->
-        <div id="loading-message" class="loading-message">Heng is working for your codes so wait...</div>
-
-        <!-- Area to display logs -->
-        <div id="log-output" class="log-output"></div>
+        <div class="header">
+            <h1>Telegram Themed Loading</h1>
+        </div>
+        <div class="loading-wrapper">
+            <div class="loading-bar"></div>
+        </div>
+        <p class="status">Loading... <span id="progress">0%</span></p>
     </div>
 
     <script src="hamkey.js"></script>
