@@ -1,5 +1,7 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
+const users = ['User 1', 'User 2', 'User 3'];
+
 
 const games = {
     BIKE: {
