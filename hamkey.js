@@ -36,6 +36,7 @@ function debug() {
     if (!DEBUG) {
         return;
     }
+
     console.log.apply(null, arguments);
 }
 
@@ -139,18 +140,29 @@ async function getPromoCode(gameKey) {
 
 async function displayPromoCode(gameKey) {
     const gameConfig = games[gameKey];
-    const codeList = document.getElementById('code-list');
+    const keysContainer = document.createElement('div');
+    keysContainer.classList.add('game-keys');
 
     for (let i = 0; i < gameConfig.keys; i++) {
         const code = await getPromoCode(gameKey);
-        const listItem = document.createElement('li');
-        listItem.textContent = code;
-        codeList.appendChild(listItem);
+        const codeElement = document.createElement('p');
+        codeElement.textContent = code;
+        keysContainer.appendChild(codeElement);
     }
+
+    return keysContainer;
 }
 
-document.getElementById('generate-btn').addEventListener('click', async function () {
-    const gameKey = document.getElementById('game').value;
-    document.getElementById('code-list').innerHTML = ''; // Clear previous codes
-    await displayPromoCode(gameKey);
-});
+async function generateKeys() {
+    const container = document.getElementById('key-container');
+    container.innerHTML = '';
+
+    for (const gameKey of Object.keys(games)) {
+        const gameTitle = document.createElement('h3');
+        gameTitle.textContent = `Game: ${gameKey}`;
+        container.appendChild(gameTitle);
+
+        const gameKeys = await displayPromoCode(gameKey);
+        container.appendChild(gameKeys);
+    }
+}
