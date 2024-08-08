@@ -1,5 +1,6 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
+const users = ['Heng', 'Godz', 'Leng'];
 
 const games = {
     BIKE: {
@@ -36,11 +37,16 @@ function debug() {
     if (!DEBUG) {
         return;
     }
+
     console.log.apply(null, arguments);
 }
 
 function info(message) {
-    console.info.apply(null, arguments);
+    const logOutput = document.getElementById('log-output');
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    logEntry.textContent = message;
+    logOutput.appendChild(logEntry);
 }
 
 function uuidv4() {
@@ -139,16 +145,43 @@ async function getPromoCode(gameKey) {
 
 async function displayPromoCode(gameKey) {
     const gameConfig = games[gameKey];
-    const codes = [];
 
     for (let i = 0; i < gameConfig.keys; i++) {
         const code = await getPromoCode(gameKey);
-        codes.push(code);
+        info(code);
+    }
+}
+
+async function main() {
+    const gameSelect = document.getElementById('game-select');
+    const generateBtn = document.getElementById('generate-btn');
+    const logOutput = document.getElementById('log-output');
+
+    function clearLog() {
+        logOutput.innerHTML = '';
     }
 
-    codes.forEach(code => {
-        info(code);
+    gameSelect.addEventListener('change', () => {
+        generateBtn.disabled = !gameSelect.value;
     });
 
-    return codes;
+    generateBtn.addEventListener('click', async () => {
+        const selectedGame = gameSelect.value;
+
+        if (!selectedGame) {
+            alert('Please select a game.');
+            return;
+        }
+
+        clearLog();
+        info(`Generating codes for ${selectedGame}`);
+
+        try {
+            await displayPromoCode(selectedGame);
+        } catch (error) {
+            info(`Error: ${error.message}`);
+        }
+    });
 }
+
+main().catch(console.error);
