@@ -8,42 +8,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>Hamster Kombat key Code Generator</h1>
-        <select id="gameSelect" class="select-menu">
+        <h1>Promo Code Generator</h1>
+        
+        <!-- Dropdown menu for selecting game -->
+        <select id="game-select" class="select-menu">
+            <option value="" disabled selected>Select a game</option>
             <option value="BIKE">BIKE</option>
             <option value="CLONE">CLONE</option>
             <option value="CUBE">CUBE</option>
             <option value="TRAIN">TRAIN</option>
         </select>
-        <button id="generateCodes" class="btn">Generate Promo Codes</button>
-        <div id="logOutput" class="log-output"></div>
+
+        <!-- Button to generate promo codes -->
+        <button id="generate-btn" class="btn" disabled>Generate Promo Codes</button>
+
+        <!-- Area to display logs -->
+        <div id="log-output" class="log-output"></div>
     </div>
+
     <script src="hamkey.js"></script>
-    <script>
-        document.getElementById('generateCodes').addEventListener('click', async () => {
-            const gameKey = document.getElementById('gameSelect').value;
-            const logOutput = document.getElementById('logOutput');
-            logOutput.textContent = ''; // Clear previous log
-
-            try {
-                await displayPromoCode(gameKey);
-            } catch (error) {
-                const errorEntry = document.createElement('div');
-                errorEntry.className = 'log-entry error';
-                errorEntry.textContent = `Error: ${error.message}`;
-                logOutput.appendChild(errorEntry);
-                logOutput.scrollTop = logOutput.scrollHeight; // Auto-scroll to the bottom
-            }
-        });
-
-        function info(message) {
-            const logOutput = document.getElementById('logOutput');
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
-            logEntry.textContent = message;
-            logOutput.appendChild(logEntry);
-            logOutput.scrollTop = logOutput.scrollHeight; // Auto-scroll to the bottom
-        }
-    </script>
 </body>
 </html>
