@@ -59,8 +59,9 @@
     }
 }
 
-/* Styling for the working message */
-.working-message {
+/* Styling for the loading message */
+.loading-message {
     display: none;
     margin-top: 20px;
-    font-size: 
+    font-size: 18px;
+    color: #ff4500; /* Orange color
