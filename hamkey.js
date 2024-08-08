@@ -6,29 +6,29 @@ const games = {
     BIKE: {
         appToken: 'd28721be-fd2d-4b45-869e-9f253b554e50',
         promoId: '43e35910-c168-4634-ad4f-52fd764a843f',
-        delay: 20_000,
-        retry: 20_000,
+        delay: 0,  // Reduced delay
+        retry: 5_000, // Reduced retry delay
         keys: 4,
     },
     CLONE: {
         appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
         promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
-        delay: 120_000,
-        retry: 20_000,
+        delay: 0,  // Reduced delay
+        retry: 5_000, // Reduced retry delay
         keys: 4,
     },
     CUBE: {
         appToken: 'd1690a07-3780-4068-810f-9b5bbf2931b2',
         promoId: 'b4170868-cef0-424f-8eb9-be0622e8e8e3',
-        delay: 20_000,
-        retry: 20_000,
+        delay: 0,  // Reduced delay
+        retry: 5_000, // Reduced retry delay
         keys: 4,
     },
     TRAIN: {
         appToken: '82647f43-3f87-402d-88dd-09a90025313f',
         promoId: 'c4480ac7-e178-4973-8061-9ed5b2e17954',
-        delay: 120_000,
-        retry: 20_000,
+        delay: 0,  // Reduced delay
+        retry: 5_000, // Reduced retry delay
         keys: 4,
     },
 };
@@ -93,30 +93,23 @@ async function getPromoCode(gameKey) {
     const gameConfig = games[gameKey];
     const clientId = uuidv4();
 
-    try {
-        const loginClientData = await fetchApi('/promo/login-client', {
-            appToken: gameConfig.appToken,
-            clientId,
-            clientOrigin: 'ios',
+    const loginClientData = await fetchApi('/promo/login-client', {
+        appToken: gameConfig.appToken,
+        clientId,
+        clientOrigin: 'ios',
+    });
+
+    const authToken = loginClientData.clientToken;
+    let promoCode = null;
+
+    for (let i = 0; i < MAX_RETRIES; i++) {
+        const registerEventData = await fetchApi('/promo/register-event', authToken, {
+            promoId: gameConfig.promoId,
+            eventId: uuidv4(),
+            eventOrigin: 'undefined'
         });
 
-        await delay(gameConfig.delay);
-
-        const authToken = loginClientData.clientToken;
-        let promoCode = null;
-
-        for (let i = 0; i < MAX_RETRIES; i++) {
-            const registerEventData = await fetchApi('/promo/register-event', authToken, {
-                promoId: gameConfig.promoId,
-                eventId: uuidv4(),
-                eventOrigin: 'undefined'
-            });
-
-            if (!registerEventData.hasCode) {
-                await delay(gameConfig.retry);
-                continue;
-            }
-
+        if (registerEventData.hasCode) {
             const createCodeData = await fetchApi('/promo/create-code', authToken, {
                 promoId: gameConfig.promoId,
             });
@@ -125,28 +118,28 @@ async function getPromoCode(gameKey) {
             break;
         }
 
-        if (promoCode === null) {
-            throw new Error(`Unable to get ${gameKey} promo code.`);
-        }
-
-        return promoCode;
-    } catch (error) {
-        console.error(`Error fetching promo code for ${gameKey}:`, error);
-        throw error;
+        await delay(gameConfig.retry);
     }
+
+    if (promoCode === null) {
+        throw new Error(`Unable to get ${gameKey} promo code.`);
+    }
+
+    return promoCode;
 }
 
 async function displayPromoCodes(gameKey, numCodes) {
     const gameConfig = games[gameKey];
     const codes = [];
 
-    for (let i = 0; i < numCodes; i++) {
-        try {
-            const code = await getPromoCode(gameKey);
-            codes.push(code);
-        } catch (error) {
-            console.error(`Failed to get code for ${gameKey}:`, error);
-            // Optionally handle individual code failure
+    const fetchPromises = Array.from({ length: numCodes }, () => getPromoCode(gameKey));
+    const results = await Promise.allSettled(fetchPromises);
+
+    for (const result of results) {
+        if (result.status === 'fulfilled') {
+            codes.push(result.value);
+        } else {
+            console.error('Failed to fetch code:', result.reason);
         }
     }
 
