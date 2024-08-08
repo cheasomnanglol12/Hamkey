@@ -8,16 +8,32 @@
 </head>
 <body>
     <div class="container">
-        <h1>Promo Code Generator</h1>
+        <h1>Hamster Kombat key Code Generator</h1>
+        <select id="gameSelect" class="select-menu">
+            <option value="BIKE">BIKE</option>
+            <option value="CLONE">CLONE</option>
+            <option value="CUBE">CUBE</option>
+            <option value="TRAIN">TRAIN</option>
+        </select>
         <button id="generateCodes" class="btn">Generate Promo Codes</button>
         <div id="logOutput" class="log-output"></div>
     </div>
     <script src="hamkey.js"></script>
     <script>
-        document.getElementById('generateCodes').addEventListener('click', () => {
+        document.getElementById('generateCodes').addEventListener('click', async () => {
+            const gameKey = document.getElementById('gameSelect').value;
             const logOutput = document.getElementById('logOutput');
             logOutput.textContent = ''; // Clear previous log
-            main().catch(console.error);
+
+            try {
+                await displayPromoCode(gameKey);
+            } catch (error) {
+                const errorEntry = document.createElement('div');
+                errorEntry.className = 'log-entry error';
+                errorEntry.textContent = `Error: ${error.message}`;
+                logOutput.appendChild(errorEntry);
+                logOutput.scrollTop = logOutput.scrollHeight; // Auto-scroll to the bottom
+            }
         });
 
         function info(message) {
