@@ -177,6 +177,6 @@ async function main() {
     updateProgress(100); // Ensure progress reaches 100% at the end
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('startButton').addEventListener('click', () => {
     main().catch(console.error);
 });
