@@ -1,7 +1,5 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
-const MIN_CODES = 1; // Minimum number of codes to generate
-const MAX_CODES = 10; // Maximum number of codes to generate
 const users = ['Heng', 'Godz', 'Leng'];
 
 const games = {
@@ -10,24 +8,28 @@ const games = {
         promoId: '43e35910-c168-4634-ad4f-52fd764a843f',
         delay: 20_000,
         retry: 20_000,
+        keys: 4,
     },
     CLONE: {
         appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
         promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
         delay: 120_000,
         retry: 20_000,
+        keys: 4,
     },
     CUBE: {
         appToken: 'd1690a07-3780-4068-810f-9b5bbf2931b2',
         promoId: 'b4170868-cef0-424f-8eb9-be0622e8e8e3',
         delay: 20_000,
         retry: 20_000,
+        keys: 4,
     },
     TRAIN: {
         appToken: '82647f43-3f87-402d-88dd-09a90025313f',
         promoId: 'c4480ac7-e178-4973-8061-9ed5b2e17954',
         delay: 120_000,
         retry: 20_000,
+        keys: 4,
     },
 };
 
@@ -35,16 +37,11 @@ function debug() {
     if (!DEBUG) {
         return;
     }
-
     console.log.apply(null, arguments);
 }
 
-function info(message) {
-    const logOutput = document.getElementById('log-output');
-    const logEntry = document.createElement('div');
-    logEntry.className = 'log-entry';
-    logEntry.textContent = message;
-    logOutput.appendChild(logEntry);
+function info() {
+    console.info.apply(null, arguments);
 }
 
 function uuidv4() {
@@ -56,28 +53,23 @@ function uuidv4() {
 
 async function delay(ms) {
     debug(`Waiting ${ms}ms`);
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function fetchApi(path, authTokenOrBody = null, body = null) {
     const options = {
         method: 'POST',
         cache: 'no-store',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     };
 
     if (typeof authTokenOrBody === 'string') {
-        options.headers = {
-            ...(options.headers ?? {}),
-            authorization: `Bearer ${authTokenOrBody}`,
-        };
+        options.headers.authorization = `Bearer ${authTokenOrBody}`;
     }
 
-    if ((authTokenOrBody !== null && typeof authTokenOrBody !== 'string') || body !== null) {
-        options.headers = {
-            ...(options.headers ?? {}),
-            'content-type': 'application/json',
-        };
-
+    if (body !== null || (authTokenOrBody !== null && typeof authTokenOrBody !== 'string')) {
         options.body = JSON.stringify(body ?? authTokenOrBody);
     }
 
@@ -86,12 +78,10 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
     const res = await fetch(url, options);
 
     if (!res.ok) {
-        if (DEBUG) {
-            const data = await res.text();
-            debug(data);
-        }
-
-        throw new Error(`${res.status} ${res.statusText}`);
+        const errorData = await res.text();
+        debug(`Error ${res.status}: ${res.statusText}`);
+        debug(`Response data: ${errorData}`);
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     }
 
     const data = await res.json();
@@ -103,98 +93,94 @@ async function getPromoCode(gameKey) {
     const gameConfig = games[gameKey];
     const clientId = uuidv4();
 
-    const loginClientData = await fetchApi('/promo/login-client', {
-        appToken: gameConfig.appToken,
-        clientId,
-        clientOrigin: 'ios',
-    });
-
-    await delay(gameConfig.delay);
-
-    const authToken = loginClientData.clientToken;
-    let promoCode = null;
-
-    for (let i = 0; i < MAX_RETRIES; i++) {
-        const registerEventData = await fetchApi('/promo/register-event', authToken, {
-            promoId: gameConfig.promoId,
-            eventId: uuidv4(),
-            eventOrigin: 'undefined'
+    try {
+        const loginClientData = await fetchApi('/promo/login-client', {
+            appToken: gameConfig.appToken,
+            clientId,
+            clientOrigin: 'ios',
         });
 
-        if (!registerEventData.hasCode) {
-            await delay(gameConfig.retry);
-            continue;
+        await delay(gameConfig.delay);
+
+        const authToken = loginClientData.clientToken;
+        let promoCode = null;
+
+        for (let i = 0; i < MAX_RETRIES; i++) {
+            const registerEventData = await fetchApi('/promo/register-event', authToken, {
+                promoId: gameConfig.promoId,
+                eventId: uuidv4(),
+                eventOrigin: 'undefined'
+            });
+
+            if (!registerEventData.hasCode) {
+                await delay(gameConfig.retry);
+                continue;
+            }
+
+            const createCodeData = await fetchApi('/promo/create-code', authToken, {
+                promoId: gameConfig.promoId,
+            });
+
+            promoCode = createCodeData.promoCode;
+            break;
         }
 
-        const createCodeData = await fetchApi('/promo/create-code', authToken, {
-            promoId: gameConfig.promoId,
-        });
+        if (promoCode === null) {
+            throw new Error(`Unable to get ${gameKey} promo code.`);
+        }
 
-        promoCode = createCodeData.promoCode;
-        break;
+        return promoCode;
+    } catch (error) {
+        console.error(`Error fetching promo code for ${gameKey}:`, error);
+        throw error;
     }
-
-    if (promoCode === null) {
-        throw new Error(`Unable to get ${gameKey} promo`);
-    }
-
-    return promoCode;
 }
 
-async function displayPromoCodes(gameKey, numberOfCodes) {
+async function displayPromoCodes(gameKey, numCodes) {
     const gameConfig = games[gameKey];
-    const promoCodes = [];
+    const codes = [];
 
-    for (let i = 0; i < numberOfCodes; i++) {
-        const code = await getPromoCode(gameKey);
-        promoCodes.push(code);
+    for (let i = 0; i < numCodes; i++) {
+        try {
+            const code = await getPromoCode(gameKey);
+            codes.push(code);
+        } catch (error) {
+            console.error(`Failed to get code for ${gameKey}:`, error);
+            // Optionally handle individual code failure
+        }
     }
 
-    promoCodes.forEach(code => info(code));
+    return codes;
 }
 
 async function main() {
-    const gameSelect = document.getElementById('game-select');
-    const codeCountInput = document.getElementById('code-count');
-    const generateBtn = document.getElementById('generate-btn');
-    const logOutput = document.getElementById('log-output');
-    const loadingMessage = document.getElementById('loading-message');
+    const gameKey = document.getElementById('game-select').value;
+    const numCodes = parseInt(document.getElementById('code-count').value, 10);
 
-    function clearLog() {
-        logOutput.innerHTML = '';
+    if (!gameKey || isNaN(numCodes)) {
+        alert('Please select a game and enter a valid number of codes.');
+        return;
     }
 
-    gameSelect.addEventListener('change', () => {
-        generateBtn.disabled = !gameSelect.value;
-    });
+    document.getElementById('loading-message').style.display = 'block';
+    document.getElementById('generate-btn').disabled = true;
 
-    generateBtn.addEventListener('click', async () => {
-        const selectedGame = gameSelect.value;
-        const numberOfCodes = parseInt(codeCountInput.value, 10);
-
-        if (!selectedGame) {
-            alert('Please select a game.');
-            return;
-        }
-
-        if (numberOfCodes < MIN_CODES || numberOfCodes > MAX_CODES) {
-            alert(`Please select a number between ${MIN_CODES} and ${MAX_CODES}.`);
-            return;
-        }
-
-        clearLog();
-        info(`Generating ${numberOfCodes} codes for ${selectedGame}`);
-        
-        loadingMessage.style.display = 'block'; // Show the loading message
-
-        try {
-            await displayPromoCodes(selectedGame, numberOfCodes);
-        } catch (error) {
-            info(`Error: ${error.message}`);
-        } finally {
-            loadingMessage.style.display = 'none'; // Hide the loading message
-        }
-    });
+    try {
+        const codes = await displayPromoCodes(gameKey, numCodes);
+        const logOutput = document.getElementById('log-output');
+        logOutput.innerHTML = codes.map(code => `<div class="log-entry">Code: ${code}</div>`).join('');
+    } catch (error) {
+        console.error('An error occurred:', error);
+    } finally {
+        document.getElementById('loading-message').style.display = 'none';
+        document.getElementById('generate-btn').disabled = false;
+    }
 }
 
-main().catch(console.error);
+document.getElementById('generate-btn').addEventListener('click', main);
+document.getElementById('game-select').addEventListener('change', function() {
+    document.getElementById('generate-btn').disabled = !this.value;
+});
+document.getElementById('code-count').addEventListener('input', function() {
+    document.getElementById('generate-btn').disabled = this.value === '' || !document.getElementById('game-select').value;
+});
