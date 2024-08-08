@@ -1,88 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Promo Code Generator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .game-container {
-      margin-bottom: 20px;
-    }
-    .promo-code {
-      font-weight: bold;
-      color: #00698f;
-    }
-  </style>
+  <title>Website Generator Key</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Promo Code Generator</h1>
-  <div id="promo-codes"></div>
+  <header>
+    <h1>Website Generator Key</h1>
+  </header>
+  <main>
+    <section id="generator-key">
+      <h2>Generator Key</h2>
+      <form id="generator-form">
+        <label for="game-select">Select Game:</label>
+        <select id="game-select">
+          <option value="BIKE">BIKE</option>
+          <option value="CLONE">CLONE</option>
+          <option value="CUBE">CUBE</option>
+          <option value="TRAIN">TRAIN</option>
+        </select>
+        <br>
+        <label for="user-select">Select User:</label>
+        <select id="user-select">
+          <option value="User 1">User 1</option>
+          <option value="User 2">User 2</option>
+          <option value="User 3">User 3</option>
+        </select>
+        <br>
+        <button id="generate-btn">Generate Key</button>
+      </form>
+      <div id="generator-output"></div>
+    </section>
+  </main>
 
-  <script>
-    const games = {
-      BIKE: {
-        appToken: 'd28721be-fd2d-4b45-869e-9f253b554e50',
-        promoId: '43e35910-c168-4634-ad4f-52fd764a843f',
-        delay: 20000,
-        retry: 20000,
-        keys: 4,
-      },
-      CLONE: {
-        appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
-        promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
-        delay: 120000,
-        retry: 20000,
-        keys: 4,
-      },
-      CUBE: {
-        appToken: 'd1690a07-3780-4068-810f-9b5bbf2931b2',
-        promoId: 'b4170868-cef0-424f-8eb9-be0622e8e8e3',
-        delay: 20000,
-        retry: 20000,
-        keys: 4,
-      },
-      TRAIN: {
-        appToken: '82647f43-3f87-402d-88dd-09a90025313f',
-        promoId: 'c4480ac7-e178-4973-8061-9ed5b2e17954',
-        delay: 120000,
-        retry: 20000,
-        keys: 4,
-      },
-    };
-
-    const users = ['User 1', 'User 2', 'User 3'];
-
-    async function getPromoCode(gameKey) {
-      // implementation of getPromoCode function remains the same
-    }
-
-    async function generatePromoCodes() {
-      const promoCodeContainer = document.getElementById('promo-codes');
-
-      for (const user of users) {
-        const userContainer = document.createElement('div');
-        userContainer.innerHTML = `<h2>${user}</h2>`;
-        promoCodeContainer.appendChild(userContainer);
-
-        for (const gameKey of Object.keys(games)) {
-          const gameContainer = document.createElement('div');
-          gameContainer.className = 'game-container';
-          gameContainer.innerHTML = `<h3>${gameKey}</h3>`;
-          userContainer.appendChild(gameContainer);
-
-          for (let i = 0; i < games[gameKey].keys; i++) {
-            const promoCode = await getPromoCode(gameKey);
-            const promoCodeElement = document.createElement('p');
-            promoCodeElement.className = 'promo-code';
-            promoCodeElement.innerHTML = ` Promo Code: ${promoCode}`;
-            gameContainer.appendChild(promoCodeElement);
-          }
-        }
-      }
-    }
-
-    generatePromoCodes();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
