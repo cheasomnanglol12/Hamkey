@@ -1,50 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo Code Generator</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>Promo Code Generator</title>
 </head>
 <body>
-    <h1>Promo Code Generator</h1>
-    <div class="container">
-        <select id="game-select">
-            <option value="">Select a Game</option>
-            </select>
-        <button id="generate-code-btn">Generate Code</button>
-        <div id="promo-code"></div>
-    </div>
-    <script src="hamkey.js"></script>
-    <script>
-        // Populate game selection options
-        const gameSelect = document.getElementById('game-select');
-        const games = Object.keys(window.games); // Access games from hamkey.js
-        games.forEach(game => {
-            const option = document.createElement('option');
-            option.value = game;
-            option.textContent = game;
-            gameSelect.appendChild(option);
-        });
+  <h1>Promo Code Generator</h1>
+  <form>
+    <label for="game">Select a game:</label>
+    <select id="game" name="game">
+      <option value="BIKE">Bike</option>
+      <option value="CLONE">Clone</option>
+      <option value="CUBE">Cube</option>
+      <option value="TRAIN">Train</option>
+    </select>
+    <button id="generate">Generate Promo Code</button>
+  </form>
+  <div id="output"></div>
 
-        const generateCodeBtn = document.getElementById('generate-code-btn');
-        const promoCodeDiv = document.getElementById('promo-code');
-
-        generateCodeBtn.addEventListener('click', async () => {
-            const selectedGame = gameSelect.value;
-            if (!selectedGame) {
-                alert('Please select a game!');
-                return;
-            }
-
-            try {
-                const code = await getPromoCode(selectedGame);
-                promoCodeDiv.textContent = code;
-            } catch (error) {
-                console.error(error);
-                promoCodeDiv.textContent = 'Error generating code.';
-            }
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
