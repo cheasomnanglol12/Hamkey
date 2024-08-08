@@ -1,77 +1,54 @@
-/* Basic styling for the container */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e5e5e5; /* Telegram's light gray background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .container {
-    width: 80%;
-    max-width: 800px;
-    margin: auto;
+    background-color: #ffffff; /* Telegram's white background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
     text-align: center;
-    background-color: #ffffff; /* White background for a clean look */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 80%;
+    max-width: 500px;
 }
 
-/* Styling for the dropdown menu */
-.select-menu {
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    border: 1px solid #e1e8ed; /* Light border for a clean look */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #f0f2f5; /* Light gray background */
+.header h1 {
+    color: #0088cc; /* Telegram's primary blue color */
+    margin: 0;
+    font-size: 24px;
 }
 
-/* Styling for the number input */
-.number-input {
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    width: 100px;
-    text-align: center;
-    border: 1px solid #e1e8ed; /* Light border for a clean look */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #f0f2f5; /* Light gray background */
+.loading-wrapper {
+    background-color: #f1f1f1; /* Light gray background for the loading bar */
+    border: 1px solid #ccc; /* Light border around the loading bar */
+    border-radius: 5px;
+    margin: 20px 0;
+    height: 30px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Styling for the button */
-.btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff; /* White text */
-    background-color: #0088cc; /* Telegram blue */
-    border: none;
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.loading-bar {
+    background-color: #0088cc; /* Telegram's primary blue color */
+    height: 100%;
+    width: 0;
+    transition: width 0.1s linear; /* Smooth width transition */
 }
 
-.btn:disabled {
-    background-color: #b0bec5; /* Disabled button color */
-    cursor: not-allowed;
+.status {
+    font-size: 18px;
+    color: #555;
 }
 
-.btn:hover:not(:disabled) {
-    background-color: #007ab8; /* Darker blue on hover */
-}
-
-/* Styling for log output */
-.log-output {
-    margin-top: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-    text-align: left;
-}
-
-/* Styling for individual log entries */
-.log-entry {
-    padding: 10px;
-    border-bottom: 1px solid #e1e8ed; /* Light border for entries */
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Styling for the loading message */
-.loading-message {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #0088cc; /* Telegram blue */
+#progress {
     font-weight: bold;
 }
