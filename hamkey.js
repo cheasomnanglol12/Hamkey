@@ -1,3 +1,4 @@
+// Include the JavaScript code you provided
 const DEBUG = false;
 const MAX_RETRIES = 6;
 const users = ['User 1', 'User 2', 'User 3'];
@@ -34,7 +35,10 @@ const games = {
 };
 
 function debug() {
-    if (!DEBUG) return;
+    if (!DEBUG) {
+        return;
+    }
+
     console.log.apply(null, arguments);
 }
 
@@ -45,13 +49,13 @@ function info() {
 function uuidv4() {
     return '10000000-1000-4000-8000-100000000000'.replace(
         /[018]/g,
-        c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+        c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16),
     );
 }
 
 async function delay(ms) {
     debug(`Waiting ${ms}ms`);
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function fetchApi(path, authTokenOrBody = null, body = null) {
@@ -72,6 +76,7 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
             ...(options.headers ?? {}),
             'content-type': 'application/json',
         };
+
         options.body = JSON.stringify(body ?? authTokenOrBody);
     }
 
@@ -84,6 +89,7 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
             const data = await res.text();
             debug(data);
         }
+
         throw new Error(`${res.status} ${res.statusText}`);
     }
 
@@ -120,63 +126,4 @@ async function getPromoCode(gameKey) {
         }
 
         const createCodeData = await fetchApi('/promo/create-code', authToken, {
-            promoId: gameConfig.promoId,
-        });
-
-        promoCode = createCodeData.promoCode;
-        break;
-    }
-
-    if (promoCode === null) {
-        throw new Error(`Unable to get ${gameKey} promo`);
-    }
-
-    return promoCode;
-}
-
-async function displayPromoCode(gameKey, updateProgress) {
-    const gameConfig = games[gameKey];
-    let totalKeys = gameConfig.keys;
-    
-    for (let i = 0; i < totalKeys; i++) {
-        const code = await getPromoCode(gameKey);
-        info(code);
-        updateProgress((i + 1) / totalKeys * 100);
-    }
-}
-
-async function main() {
-    let totalGames = Object.keys(games).length;
-    let totalUsers = users.length;
-    let completedUsers = 0;
-    let completedGames = 0;
-
-    const updateProgress = (percentage) => {
-        document.getElementById('progress').textContent = `${Math.round(percentage)}%`;
-        document.querySelector('.loading-bar').style.width = `${percentage}%`;
-    };
-
-    for (const user of users) {
-        info(`- Running for ${user}`);
-        completedGames = 0;
-
-        for (const gameKey of Object.keys(games)) {
-            info(`-- Game ${gameKey}`);
-            await displayPromoCode(gameKey, (progress) => {
-                const userProgress = ((completedGames + progress / 100) / totalGames) * 100;
-                updateProgress(userProgress);
-            });
-
-            completedGames++;
-        }
-
-        completedUsers++;
-        info('====================');
-    }
-
-    updateProgress(100); // Ensure progress reaches 100% at the end
-}
-
-document.getElementById('startButton').addEventListener('click', () => {
-    main().catch(console.error);
-});
+            promoId: gameCo
