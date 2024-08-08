@@ -3,32 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo Code Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Key Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 50px;
+        }
+        #key-container {
+            margin-top: 20px;
+        }
+        .game-keys {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Promo Code Generator</h1>
+    <h1>Key Generator</h1>
+    <button onclick="generateKeys()">Generate Keys</button>
+    <div id="key-container"></div>
 
-        <div class="game-selection">
-            <label for="game">Select a Game:</label>
-            <select id="game">
-                <option value="BIKE">Bike Ride 3D</option>
-                <option value="CLONE">Clone</option>
-                <option value="CUBE">Cube</option>
-                <option value="TRAIN">Train</option>
-            </select>
-        </div>
-
-        <button id="generate-btn">Generate Promo Code</button>
-
-        <div class="output">
-            <h2>Generated Codes:</h2>
-            <ul id="code-list"></ul>
-        </div>
-    </div>
-
-    <!-- Include JavaScript -->
     <script src="hamkey.js"></script>
 </body>
 </html>
