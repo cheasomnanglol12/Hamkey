@@ -3,93 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Tabs</title>
+    <title>Promo Code Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <div class="version-info">version: <span>0.3.4</span></div>
-        <div class="user-info">
-            <img src="coin-icon.png" alt="Coin Icon" class="coin-icon">
-            <div class="username">CHEA SOMNANG<br><span>@yoyoyoyoyoyo10011</span></div>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="tab-bar">
-            <button class="tab active" id="btn-bike" data-tab="bike">Bike</button>
-            <button class="tab" id="btn-clone" data-tab="clone">Clone</button>
-            <button class="tab" id="btn-cube" data-tab="cube">Cube</button>
-            <button class="tab" id="btn-train" data-tab="train">Train</button>
+        <h1>Promo Code Generator</h1>
+
+        <div class="tabs">
+            <button class="tab active" data-game="BIKE">Bike</button>
+            <button class="tab" data-game="CLONE">Clone</button>
+            <button class="tab" data-game="CUBE">Cube</button>
+            <button class="tab" data-game="TRAIN">Train</button>
         </div>
 
-        <div id="bike" class="content active">
-            <h1>Bike Ride 3D</h1>
-            <p>click <strong>Generate</strong> to use</p>
-
-            <div class="grid">
-                <div class="grid-block"></div>
-                <!-- Additional grid blocks -->
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress">0%</div>
-            </div>
-
-            <button class="generate-btn" id="generate-bike-btn">Generate</button>
+        <div id="output" class="output">
+            <p>Select a game and click "Generate Code" to start.</p>
         </div>
 
-        <div id="clone" class="content">
-            <h1>Clone</h1>
-            <p>click <strong>Generate</strong> to use</p>
-
-            <div class="grid">
-                <div class="grid-block"></div>
-                <!-- Additional grid blocks -->
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress">0%</div>
-            </div>
-
-            <button class="generate-btn" id="generate-clone-btn">Generate</button>
-        </div>
-
-        <div id="cube" class="content">
-            <h1>Cube</h1>
-            <p>click <strong>Generate</strong> to use</p>
-
-            <div class="grid">
-                <div class="grid-block"></div>
-                <!-- Additional grid blocks -->
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress">0%</div>
-            </div>
-
-            <button class="generate-btn" id="generate-cube-btn">Generate</button>
-        </div>
-
-        <div id="train" class="content">
-            <h1>Train</h1>
-            <p>click <strong>Generate</strong> to use</p>
-
-            <div class="grid">
-                <div class="grid-block"></div>
-                <!-- Additional grid blocks -->
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress">0%</div>
-            </div>
-
-            <button class="generate-btn" id="generate-train-btn">Generate</button>
-        </div>
+        <button id="generate-btn" class="generate-btn">Generate Code</button>
     </div>
 
-    <!-- Include JavaScript -->
     <script src="hamkey.js"></script>
-    <script src="tabs.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
