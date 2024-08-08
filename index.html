@@ -3,14 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Key Generator</title>
+    <title>Promo Code Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Key Generator</h1>
-    <button id="generateKey">Generate Key</button>
-    <p id="keyDisplay">Your key will appear here</p>
-
+    <div class="container">
+        <h1>Promo Code Generator</h1>
+        <button id="generateCodes" class="btn">Generate Promo Codes</button>
+        <div id="logOutput" class="log-output"></div>
+    </div>
     <script src="hamkey.js"></script>
+    <script>
+        document.getElementById('generateCodes').addEventListener('click', () => {
+            const logOutput = document.getElementById('logOutput');
+            logOutput.textContent = ''; // Clear previous log
+            main().catch(console.error);
+        });
+
+        function info(message) {
+            const logOutput = document.getElementById('logOutput');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = message;
+            logOutput.appendChild(logEntry);
+            logOutput.scrollTop = logOutput.scrollHeight; // Auto-scroll to the bottom
+        }
+    </script>
 </body>
 </html>
