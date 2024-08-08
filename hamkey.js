@@ -1,6 +1,6 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
-const users = ['Heng', 'Godz', 'Leng'];
+const users = ['User 1', 'User 2', 'User 3'];
 
 const games = {
     BIKE: {
@@ -66,7 +66,7 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
     };
 
     if (typeof authTokenOrBody === 'string') {
-        options.headers.authorization = `Bearer ${authTokenOrBody}`;
+        options.headers['Authorization'] = `Bearer ${authTokenOrBody}`;
     }
 
     if (body !== null || (authTokenOrBody !== null && typeof authTokenOrBody !== 'string')) {
