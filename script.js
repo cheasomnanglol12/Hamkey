@@ -173,11 +173,11 @@ document.getElementById('generateMoreBtn').addEventListener('click', () => {
 });
 
 document.getElementById('creatorChannelBtn').addEventListener('click', () => {
-    window.open('https://telegram.me/Sam_Dm_bot', '_blank');
+    window.open('https://t.me/hamster_kombat_kh', '_blank');
 });
 
 telegramChannelBtn.addEventListener('click', () => {
-    window.open('https://telegram.me/Insta_Buy_Follower', '_blank');
+    window.open('https://t.me/hamster_kombat_kh', '_blank');
 });
 
 const generateClientId = () => {
