@@ -1,6 +1,7 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
-const NUMBER_OF_CODES = 8; // Number of codes to generate
+const MIN_CODES = 1; // Minimum number of codes to generate
+const MAX_CODES = 10; // Maximum number of codes to generate
 const users = ['Heng', 'Godz', 'Leng'];
 
 const games = {
@@ -9,28 +10,24 @@ const games = {
         promoId: '43e35910-c168-4634-ad4f-52fd764a843f',
         delay: 20_000,
         retry: 20_000,
-        keys: 8, // Adjusted keys to match the number of codes you want to generate
     },
     CLONE: {
         appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
         promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
         delay: 120_000,
         retry: 20_000,
-        keys: 8,
     },
     CUBE: {
         appToken: 'd1690a07-3780-4068-810f-9b5bbf2931b2',
         promoId: 'b4170868-cef0-424f-8eb9-be0622e8e8e3',
         delay: 20_000,
         retry: 20_000,
-        keys: 8,
     },
     TRAIN: {
         appToken: '82647f43-3f87-402d-88dd-09a90025313f',
         promoId: 'c4480ac7-e178-4973-8061-9ed5b2e17954',
         delay: 120_000,
         retry: 20_000,
-        keys: 8,
     },
 };
 
@@ -144,11 +141,11 @@ async function getPromoCode(gameKey) {
     return promoCode;
 }
 
-async function displayPromoCodes(gameKey) {
+async function displayPromoCodes(gameKey, numberOfCodes) {
     const gameConfig = games[gameKey];
     const promoCodes = [];
 
-    for (let i = 0; i < NUMBER_OF_CODES; i++) {
+    for (let i = 0; i < numberOfCodes; i++) {
         const code = await getPromoCode(gameKey);
         promoCodes.push(code);
     }
@@ -158,6 +155,7 @@ async function displayPromoCodes(gameKey) {
 
 async function main() {
     const gameSelect = document.getElementById('game-select');
+    const codeCountInput = document.getElementById('code-count');
     const generateBtn = document.getElementById('generate-btn');
     const logOutput = document.getElementById('log-output');
     const loadingMessage = document.getElementById('loading-message');
@@ -172,19 +170,25 @@ async function main() {
 
     generateBtn.addEventListener('click', async () => {
         const selectedGame = gameSelect.value;
+        const numberOfCodes = parseInt(codeCountInput.value, 10);
 
         if (!selectedGame) {
             alert('Please select a game.');
             return;
         }
 
+        if (numberOfCodes < MIN_CODES || numberOfCodes > MAX_CODES) {
+            alert(`Please select a number between ${MIN_CODES} and ${MAX_CODES}.`);
+            return;
+        }
+
         clearLog();
-        info(`Generating ${NUMBER_OF_CODES} codes for ${selectedGame}`);
+        info(`Generating ${numberOfCodes} codes for ${selectedGame}`);
         
         loadingMessage.style.display = 'block'; // Show the loading message
 
         try {
-            await displayPromoCodes(selectedGame);
+            await displayPromoCodes(selectedGame, numberOfCodes);
         } catch (error) {
             info(`Error: ${error.message}`);
         } finally {
