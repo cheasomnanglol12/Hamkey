@@ -10,21 +10,25 @@
     <div class="container">
         <h1>Promo Code Generator</h1>
 
-        <div class="tabs">
-            <button class="tab active" data-game="BIKE">Bike</button>
-            <button class="tab" data-game="CLONE">Clone</button>
-            <button class="tab" data-game="CUBE">Cube</button>
-            <button class="tab" data-game="TRAIN">Train</button>
+        <div class="game-selection">
+            <label for="game">Select a Game:</label>
+            <select id="game">
+                <option value="BIKE">Bike Ride 3D</option>
+                <option value="CLONE">Clone</option>
+                <option value="CUBE">Cube</option>
+                <option value="TRAIN">Train</option>
+            </select>
         </div>
 
-        <div id="output" class="output">
-            <p>Select a game and click "Generate Code" to start.</p>
-        </div>
+        <button id="generate-btn">Generate Promo Code</button>
 
-        <button id="generate-btn" class="generate-btn">Generate Code</button>
+        <div class="output">
+            <h2>Generated Codes:</h2>
+            <ul id="code-list"></ul>
+        </div>
     </div>
 
+    <!-- Include JavaScript -->
     <script src="hamkey.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
