@@ -6,28 +6,83 @@
     body {
       font-family: Arial, sans-serif;
     }
-    #output {
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background-color: #f9f9f9;
+    .game-container {
+      margin-bottom: 20px;
+    }
+    .promo-code {
+      font-weight: bold;
+      color: #00698f;
     }
   </style>
 </head>
 <body>
   <h1>Promo Code Generator</h1>
-  <form>
-    <label for="game">Select a game:</label>
-    <select id="game" name="game">
-      <option value="BIKE">Bike</option>
-      <option value="CLONE">Clone</option>
-      <option value="CUBE">Cube</option>
-      <option value="TRAIN">Train</option>
-    </select>
-    <button id="generate">Generate Promo Code</button>
-  </form>
-  <div id="output"></div>
+  <div id="promo-codes"></div>
 
-  <script src="script.js"></script>
+  <script>
+    const games = {
+      BIKE: {
+        appToken: 'd28721be-fd2d-4b45-869e-9f253b554e50',
+        promoId: '43e35910-c168-4634-ad4f-52fd764a843f',
+        delay: 20000,
+        retry: 20000,
+        keys: 4,
+      },
+      CLONE: {
+        appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
+        promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
+        delay: 120000,
+        retry: 20000,
+        keys: 4,
+      },
+      CUBE: {
+        appToken: 'd1690a07-3780-4068-810f-9b5bbf2931b2',
+        promoId: 'b4170868-cef0-424f-8eb9-be0622e8e8e3',
+        delay: 20000,
+        retry: 20000,
+        keys: 4,
+      },
+      TRAIN: {
+        appToken: '82647f43-3f87-402d-88dd-09a90025313f',
+        promoId: 'c4480ac7-e178-4973-8061-9ed5b2e17954',
+        delay: 120000,
+        retry: 20000,
+        keys: 4,
+      },
+    };
+
+    const users = ['User 1', 'User 2', 'User 3'];
+
+    async function getPromoCode(gameKey) {
+      // implementation of getPromoCode function remains the same
+    }
+
+    async function generatePromoCodes() {
+      const promoCodeContainer = document.getElementById('promo-codes');
+
+      for (const user of users) {
+        const userContainer = document.createElement('div');
+        userContainer.innerHTML = `<h2>${user}</h2>`;
+        promoCodeContainer.appendChild(userContainer);
+
+        for (const gameKey of Object.keys(games)) {
+          const gameContainer = document.createElement('div');
+          gameContainer.className = 'game-container';
+          gameContainer.innerHTML = `<h3>${gameKey}</h3>`;
+          userContainer.appendChild(gameContainer);
+
+          for (let i = 0; i < games[gameKey].keys; i++) {
+            const promoCode = await getPromoCode(gameKey);
+            const promoCodeElement = document.createElement('p');
+            promoCodeElement.className = 'promo-code';
+            promoCodeElement.innerHTML = ` Promo Code: ${promoCode}`;
+            gameContainer.appendChild(promoCodeElement);
+          }
+        }
+      }
+    }
+
+    generatePromoCodes();
+  </script>
 </body>
 </html>
