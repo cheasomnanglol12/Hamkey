@@ -1,6 +1,5 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
-const users = ['User 1', 'User 2', 'User 3'];
 
 const games = {
     BIKE: {
@@ -34,10 +33,7 @@ const games = {
 };
 
 function debug() {
-    if (!DEBUG) {
-        return;
-    }
-
+    if (!DEBUG) return;
     console.log.apply(null, arguments);
 }
 
@@ -48,13 +44,13 @@ function info() {
 function uuidv4() {
     return '10000000-1000-4000-8000-100000000000'.replace(
         /[018]/g,
-        c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16),
+        c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
 }
 
 async function delay(ms) {
     debug(`Waiting ${ms}ms`);
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function fetchApi(path, authTokenOrBody = null, body = null) {
@@ -75,7 +71,6 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
             ...(options.headers ?? {}),
             'content-type': 'application/json',
         };
-
         options.body = JSON.stringify(body ?? authTokenOrBody);
     }
 
@@ -88,7 +83,6 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
             const data = await res.text();
             debug(data);
         }
-
         throw new Error(`${res.status} ${res.statusText}`);
     }
 
@@ -139,26 +133,38 @@ async function getPromoCode(gameKey) {
     return promoCode;
 }
 
-async function displayPromoCode(gameKey) {
+async function displayPromoCode(gameKey, updateProgress) {
     const gameConfig = games[gameKey];
 
     for (let i = 0; i < gameConfig.keys; i++) {
         const code = await getPromoCode(gameKey);
         info(code);
+        updateProgress((i + 1) / gameConfig.keys * 100);
     }
 }
 
 async function main() {
+    let currentUserIndex = 0;
+    const totalUsers = users.length;
+
+    const updateProgress = (percentage) => {
+        document.getElementById('progress').textContent = `${Math.round(percentage)}%`;
+        document.querySelector('.loading-bar').style.width = `${percentage}%`;
+    };
+
     for (const user of users) {
         info(`- Running for ${user}`);
 
         for (const gameKey of Object.keys(games)) {
             info(`-- Game ${gameKey}`);
-            await displayPromoCode(gameKey);
+            await displayPromoCode(gameKey, updateProgress);
         }
 
         info('====================');
+        currentUserIndex++;
     }
 }
 
-main().catch(console.error);
+document.addEventListener('DOMContentLoaded', () => {
+    main().catch(console.error);
+});
