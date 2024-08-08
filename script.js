@@ -1,18 +1,10 @@
-// This script assumes the presence of `hamkey.js` which includes the logic you provided.
-document.addEventListener("DOMContentLoaded", function () {
-    const tabs = document.querySelectorAll(".tab");
-    const output = document.getElementById("output");
-    let selectedGame = "BIKE";
+const form = document.querySelector('form');
+const output = document.querySelector('#output');
 
-    // Handle tab switching
-    tabs.forEach(tab => {
-        tab.addEventListener("click", function () {
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-            selectedGame = tab.getAttribute("data-game");
-            output.textContent = `Ready to generate codes for ${selectedGame}.`;
-        });
-    });
-
-    // Handle Generate Code button click
-    document.getElementById
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const game = document.querySelector('#game').value;
+  const response = await fetch(`/generate/${game}`);
+  const code = await response.text();
+  output.textContent = `Your promo code is: ${code}`;
+});
