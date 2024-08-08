@@ -3,21 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Themed Loading</title>
+    <title>Bike Ride 3D</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Telegram Themed Loading</h1>
+    <div class="header">
+        <div class="version-info">version: <span>0.3.4</span></div>
+        <div class="user-info">
+            <img src="coin-icon.png" alt="Coin Icon" class="coin-icon">
+            <div class="username">CHEA SOMNANG<br><span>@yoyoyoyoyoyo10011</span></div>
         </div>
-        <button id="startButton">Generate Promo Codes</button>
-        <div class="loading-wrapper">
-            <div class="loading-bar"></div>
-        </div>
-        <p class="status">Loading... <span id="progress">0%</span></p>
     </div>
 
+    <div class="container">
+        <div class="tab-bar">
+            <button class="tab active" id="btn-bike">Bike</button>
+            <button class="tab" id="btn-clone">Clone</button>
+            <button class="tab" id="btn-cube">Cube</button>
+            <button class="tab" id="btn-train">Train</button>
+        </div>
+
+        <div class="content">
+            <h1>Bike Ride 3D</h1>
+            <p>click <strong>Generate</strong> to use</p>
+
+            <div class="grid">
+                <!-- Grid blocks -->
+                <div class="grid-block"></div>
+                <!-- Repeat these divs as needed -->
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress">0%</div>
+            </div>
+
+            <button class="generate-btn" id="generate-btn">Generate</button>
+        </div>
+    </div>
+
+    <!-- Include JavaScript -->
     <script src="hamkey.js"></script>
 </body>
 </html>
