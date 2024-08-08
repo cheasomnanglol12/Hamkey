@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bike Ride 3D</title>
+    <title>Game Tabs</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,31 +17,79 @@
 
     <div class="container">
         <div class="tab-bar">
-            <button class="tab active" id="btn-bike">Bike</button>
-            <button class="tab" id="btn-clone">Clone</button>
-            <button class="tab" id="btn-cube">Cube</button>
-            <button class="tab" id="btn-train">Train</button>
+            <button class="tab active" id="btn-bike" data-tab="bike">Bike</button>
+            <button class="tab" id="btn-clone" data-tab="clone">Clone</button>
+            <button class="tab" id="btn-cube" data-tab="cube">Cube</button>
+            <button class="tab" id="btn-train" data-tab="train">Train</button>
         </div>
 
-        <div class="content">
+        <div id="bike" class="content active">
             <h1>Bike Ride 3D</h1>
             <p>click <strong>Generate</strong> to use</p>
 
             <div class="grid">
-                <!-- Grid blocks -->
                 <div class="grid-block"></div>
-                <!-- Repeat these divs as needed -->
+                <!-- Additional grid blocks -->
             </div>
 
             <div class="progress-bar">
                 <div class="progress">0%</div>
             </div>
 
-            <button class="generate-btn" id="generate-btn">Generate</button>
+            <button class="generate-btn" id="generate-bike-btn">Generate</button>
+        </div>
+
+        <div id="clone" class="content">
+            <h1>Clone</h1>
+            <p>click <strong>Generate</strong> to use</p>
+
+            <div class="grid">
+                <div class="grid-block"></div>
+                <!-- Additional grid blocks -->
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress">0%</div>
+            </div>
+
+            <button class="generate-btn" id="generate-clone-btn">Generate</button>
+        </div>
+
+        <div id="cube" class="content">
+            <h1>Cube</h1>
+            <p>click <strong>Generate</strong> to use</p>
+
+            <div class="grid">
+                <div class="grid-block"></div>
+                <!-- Additional grid blocks -->
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress">0%</div>
+            </div>
+
+            <button class="generate-btn" id="generate-cube-btn">Generate</button>
+        </div>
+
+        <div id="train" class="content">
+            <h1>Train</h1>
+            <p>click <strong>Generate</strong> to use</p>
+
+            <div class="grid">
+                <div class="grid-block"></div>
+                <!-- Additional grid blocks -->
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress">0%</div>
+            </div>
+
+            <button class="generate-btn" id="generate-train-btn">Generate</button>
         </div>
     </div>
 
     <!-- Include JavaScript -->
     <script src="hamkey.js"></script>
+    <script src="tabs.js"></script>
 </body>
 </html>
