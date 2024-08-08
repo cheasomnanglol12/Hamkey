@@ -6,29 +6,29 @@ const games = {
     BIKE: {
         appToken: 'd28721be-fd2d-4b45-869e-9f253b554e50',
         promoId: '43e35910-c168-4634-ad4f-52fd764a843f',
-        delay: 0,  // Reduced delay
-        retry: 5_000, // Reduced retry delay
+        delay: 20_000,
+        retry: 20_000,
         keys: 4,
     },
     CLONE: {
         appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
         promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
-        delay: 0,  // Reduced delay
-        retry: 5_000, // Reduced retry delay
+        delay: 120_000,
+        retry: 20_000,
         keys: 4,
     },
     CUBE: {
         appToken: 'd1690a07-3780-4068-810f-9b5bbf2931b2',
         promoId: 'b4170868-cef0-424f-8eb9-be0622e8e8e3',
-        delay: 0,  // Reduced delay
-        retry: 5_000, // Reduced retry delay
+        delay: 20_000,
+        retry: 20_000,
         keys: 4,
     },
     TRAIN: {
         appToken: '82647f43-3f87-402d-88dd-09a90025313f',
         promoId: 'c4480ac7-e178-4973-8061-9ed5b2e17954',
-        delay: 0,  // Reduced delay
-        retry: 5_000, // Reduced retry delay
+        delay: 120_000,
+        retry: 20_000,
         keys: 4,
     },
 };
@@ -37,6 +37,7 @@ function debug() {
     if (!DEBUG) {
         return;
     }
+
     console.log.apply(null, arguments);
 }
 
@@ -53,23 +54,28 @@ function uuidv4() {
 
 async function delay(ms) {
     debug(`Waiting ${ms}ms`);
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function fetchApi(path, authTokenOrBody = null, body = null) {
     const options = {
         method: 'POST',
         cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json'
-        }
     };
 
     if (typeof authTokenOrBody === 'string') {
-        options.headers['Authorization'] = `Bearer ${authTokenOrBody}`;
+        options.headers = {
+            ...(options.headers ?? {}),
+            authorization: `Bearer ${authTokenOrBody}`,
+        };
     }
 
-    if (body !== null || (authTokenOrBody !== null && typeof authTokenOrBody !== 'string')) {
+    if ((authTokenOrBody !== null && typeof authTokenOrBody !== 'string') || body !== null) {
+        options.headers = {
+            ...(options.headers ?? {}),
+            'content-type': 'application/json',
+        };
+
         options.body = JSON.stringify(body ?? authTokenOrBody);
     }
 
@@ -78,10 +84,12 @@ async function fetchApi(path, authTokenOrBody = null, body = null) {
     const res = await fetch(url, options);
 
     if (!res.ok) {
-        const errorData = await res.text();
-        debug(`Error ${res.status}: ${res.statusText}`);
-        debug(`Response data: ${errorData}`);
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        if (DEBUG) {
+            const data = await res.text();
+            debug(data);
+        }
+
+        throw new Error(`${res.status} ${res.statusText}`);
     }
 
     const data = await res.json();
@@ -99,6 +107,8 @@ async function getPromoCode(gameKey) {
         clientOrigin: 'ios',
     });
 
+    await delay(gameConfig.delay);
+
     const authToken = loginClientData.clientToken;
     let promoCode = null;
 
@@ -109,71 +119,46 @@ async function getPromoCode(gameKey) {
             eventOrigin: 'undefined'
         });
 
-        if (registerEventData.hasCode) {
-            const createCodeData = await fetchApi('/promo/create-code', authToken, {
-                promoId: gameConfig.promoId,
-            });
-
-            promoCode = createCodeData.promoCode;
-            break;
+        if (!registerEventData.hasCode) {
+            await delay(gameConfig.retry);
+            continue;
         }
 
-        await delay(gameConfig.retry);
+        const createCodeData = await fetchApi('/promo/create-code', authToken, {
+            promoId: gameConfig.promoId,
+        });
+
+        promoCode = createCodeData.promoCode;
+        break;
     }
 
     if (promoCode === null) {
-        throw new Error(`Unable to get ${gameKey} promo code.`);
+        throw new Error(`Unable to get ${gameKey} promo`);
     }
 
     return promoCode;
 }
 
-async function displayPromoCodes(gameKey, numCodes) {
+async function displayPromoCode(gameKey) {
     const gameConfig = games[gameKey];
-    const codes = [];
 
-    const fetchPromises = Array.from({ length: numCodes }, () => getPromoCode(gameKey));
-    const results = await Promise.allSettled(fetchPromises);
-
-    for (const result of results) {
-        if (result.status === 'fulfilled') {
-            codes.push(result.value);
-        } else {
-            console.error('Failed to fetch code:', result.reason);
-        }
+    for (let i = 0; i < gameConfig.keys; i++) {
+        const code = await getPromoCode(gameKey);
+        info(code);
     }
-
-    return codes;
 }
 
 async function main() {
-    const gameKey = document.getElementById('game-select').value;
-    const numCodes = parseInt(document.getElementById('code-count').value, 10);
+    for (const user of users) {
+        info(`- Running for ${user}`);
 
-    if (!gameKey || isNaN(numCodes)) {
-        alert('Please select a game and enter a valid number of codes.');
-        return;
-    }
+        for (const gameKey of Object.keys(games)) {
+            info(`-- Game ${gameKey}`);
+            await displayPromoCode(gameKey);
+        }
 
-    document.getElementById('loading-message').style.display = 'block';
-    document.getElementById('generate-btn').disabled = true;
-
-    try {
-        const codes = await displayPromoCodes(gameKey, numCodes);
-        const logOutput = document.getElementById('log-output');
-        logOutput.innerHTML = codes.map(code => `<div class="log-entry">Code: ${code}</div>`).join('');
-    } catch (error) {
-        console.error('An error occurred:', error);
-    } finally {
-        document.getElementById('loading-message').style.display = 'none';
-        document.getElementById('generate-btn').disabled = false;
+        info('====================');
     }
 }
 
-document.getElementById('generate-btn').addEventListener('click', main);
-document.getElementById('game-select').addEventListener('change', function() {
-    document.getElementById('generate-btn').disabled = !this.value;
-});
-document.getElementById('code-count').addEventListener('input', function() {
-    document.getElementById('generate-btn').disabled = this.value === '' || !document.getElementById('game-select').value;
-});
+main().catch(console.error);
