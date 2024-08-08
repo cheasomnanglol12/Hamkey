@@ -1,7 +1,5 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
-const users = ['User 1', 'User 2', 'User 3'];
-
 
 const games = {
     BIKE: {
@@ -38,11 +36,10 @@ function debug() {
     if (!DEBUG) {
         return;
     }
-
     console.log.apply(null, arguments);
 }
 
-function info() {
+function info(message) {
     console.info.apply(null, arguments);
 }
 
@@ -57,8 +54,6 @@ async function delay(ms) {
     debug(`Waiting ${ms}ms`);
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-const users = ['User 1', 'User 2', 'User 3'];
 
 async function fetchApi(path, authTokenOrBody = null, body = null) {
     const options = {
@@ -144,24 +139,16 @@ async function getPromoCode(gameKey) {
 
 async function displayPromoCode(gameKey) {
     const gameConfig = games[gameKey];
+    const codes = [];
 
     for (let i = 0; i < gameConfig.keys; i++) {
         const code = await getPromoCode(gameKey);
+        codes.push(code);
+    }
+
+    codes.forEach(code => {
         info(code);
-    }
+    });
+
+    return codes;
 }
-
-async function main() {
-    for (const user of users) {
-        info(`- Running for ${user}`);
-
-        for (const gameKey of Object.keys(games)) {
-            info(`-- Game ${gameKey}`);
-            await displayPromoCode(gameKey);
-        }
-
-        info('====================');
-    }
-}
-
-main().catch(console.error);
