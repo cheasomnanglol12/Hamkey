@@ -2,59 +2,60 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
-    text-align: center;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
+    background-color: #fff;
     padding: 20px;
-    background-color: white;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h1 {
     margin-bottom: 20px;
 }
 
-.tabs {
-    display: flex;
-    justify-content: center;
+.game-selection {
     margin-bottom: 20px;
 }
 
-.tab {
-    background-color: #ddd;
-    border: none;
+select {
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
     padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    margin: 0 5px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.tab.active {
-    background-color: #1A76D2;
-    color: white;
-}
-
-.generate-btn {
-    background-color: #28a745;
+    background-color: #007BFF;
     color: white;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s;
 }
 
-.generate-btn:hover {
-    background-color: #218838;
+button:hover {
+    background-color: #0056b3;
 }
 
 .output {
     margin-top: 20px;
-    font-weight: bold;
+}
+
+#code-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#code-list li {
+    background-color: #e9ecef;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
 }
