@@ -1,5 +1,6 @@
 const DEBUG = false;
 const MAX_RETRIES = 6;
+const users = ['User 1', 'User 2', 'User 3'];
 
 const games = {
     BIKE: {
@@ -135,17 +136,20 @@ async function getPromoCode(gameKey) {
 
 async function displayPromoCode(gameKey, updateProgress) {
     const gameConfig = games[gameKey];
-
-    for (let i = 0; i < gameConfig.keys; i++) {
+    let totalKeys = gameConfig.keys;
+    
+    for (let i = 0; i < totalKeys; i++) {
         const code = await getPromoCode(gameKey);
         info(code);
-        updateProgress((i + 1) / gameConfig.keys * 100);
+        updateProgress((i + 1) / totalKeys * 100);
     }
 }
 
 async function main() {
-    let currentUserIndex = 0;
-    const totalUsers = users.length;
+    let totalGames = Object.keys(games).length;
+    let totalUsers = users.length;
+    let completedUsers = 0;
+    let completedGames = 0;
 
     const updateProgress = (percentage) => {
         document.getElementById('progress').textContent = `${Math.round(percentage)}%`;
@@ -154,15 +158,23 @@ async function main() {
 
     for (const user of users) {
         info(`- Running for ${user}`);
+        completedGames = 0;
 
         for (const gameKey of Object.keys(games)) {
             info(`-- Game ${gameKey}`);
-            await displayPromoCode(gameKey, updateProgress);
+            await displayPromoCode(gameKey, (progress) => {
+                const userProgress = ((completedGames + progress / 100) / totalGames) * 100;
+                updateProgress(userProgress);
+            });
+
+            completedGames++;
         }
 
+        completedUsers++;
         info('====================');
-        currentUserIndex++;
     }
+
+    updateProgress(100); // Ensure progress reaches 100% at the end
 }
 
 document.addEventListener('DOMContentLoaded', () => {
