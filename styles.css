@@ -1,23 +1,32 @@
-/* Telegram-themed CSS */
+/* Telegram-themed CSS with Background Animation */
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #E7EEF3;
+    background: linear-gradient(45deg, #179DE5, #5DC8F5);
     color: #2E3C4A;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
+    animation: backgroundAnimation 10s ease-in-out infinite;
+}
+
+@keyframes backgroundAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
     background: #FFFFFF;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 30px;
     max-width: 450px;
     width: 100%;
     text-align: center;
+    animation: fadeIn 1s ease-out;
 }
 
 h1 {
@@ -25,10 +34,12 @@ h1 {
     margin-bottom: 25px;
     font-size: 24px;
     font-weight: 600;
+    animation: slideDown 1s ease-out;
 }
 
 .form-group {
     margin-bottom: 20px;
+    animation: fadeInUp 1s ease-out;
 }
 
 label {
@@ -47,6 +58,7 @@ select {
     border: 1px solid #CBD5DC;
     background-color: #F5F7F9;
     color: #2E3C4A;
+    animation: fadeInUp 1.2s ease-out;
 }
 
 button {
@@ -57,11 +69,13 @@ button {
     font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
+    animation: pulse 1.5s infinite;
 }
 
 button:hover {
     background-color: #007AA5;
+    transform: scale(1.05);
 }
 
 .hidden {
@@ -114,17 +128,20 @@ button:hover {
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
+    animation: pulse 1.5s infinite;
 }
 
 .copyKeyBtn:hover {
     background-color: #2B8D44;
+    transform: scale(1.05);
 }
 
 .footer {
     margin-top: 25px;
     font-size: 14px;
     color: #0088CC;
+    animation: fadeIn 2s ease-in-out;
 }
 
 #copyStatus {
@@ -140,11 +157,13 @@ button:hover {
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
+    animation: pulse 1.5s infinite;
 }
 
 #telegramChannelBtn:hover {
     background-color: #007AA5;
+    transform: scale(1.05);
 }
 
 #creatorChannelBtn {
@@ -155,9 +174,32 @@ button:hover {
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
+    animation: pulse 1.5s infinite;
 }
 
 #creatorChannelBtn:hover {
     background-color: #D76C07;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
 }
