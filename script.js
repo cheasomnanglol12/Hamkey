@@ -173,7 +173,7 @@ document.getElementById('generateMoreBtn').addEventListener('click', () => {
 });
 
 document.getElementById('creatorChannelBtn').addEventListener('click', () => {
-    window.open('https://t.me/hamster_kombat_kh', '_blank');
+    window.open('https://t.me/yoyoyoyoyoyo10011', '_blank');
 });
 
 telegramChannelBtn.addEventListener('click', () => {
