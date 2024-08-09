@@ -1,6 +1,6 @@
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(45deg, #2196F3, #64B5F6); /* Changed gradient colors to match Telegram's theme */
+  background: linear-gradient(45deg, #64B5F6, #F5F7F9); /* Changed gradient colors to match light blue theme */
   color: #2E3C4A;
   display: flex;
   justify-content: center;
@@ -27,11 +27,20 @@ body {
   text-align: center;
   animation: fadeIn 1s ease-out;
   position: relative;
-  border: 1px solid #E5E5EA; /* Added border to match Telegram's theme */
+  border: 1px solid #E5E5EA; /* Added border to match light blue theme */
+  background-image: linear-gradient(to bottom, rgba(100, 181, 246, 0.5), rgba(245, 247, 249, 0.5));
+  background-size: 100px 100px;
+  background-position: 0% 0%;
+  animation: backgroundX 10s ease-in-out infinite;
+}
+
+@keyframes backgroundX {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
 h1 {
-  color: #2196F3; /* Changed color to match Telegram's theme */
+  color: #64B5F6; /* Changed color to match light blue theme */
   margin-bottom: 25px;
   font-size: 24px;
   font-weight: 600;
@@ -47,7 +56,7 @@ label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #2196F3; /* Changed color to match Telegram's theme */
+  color: #64B5F6; /* Changed color to match light blue theme */
 }
 
 select {
@@ -63,7 +72,7 @@ select {
 }
 
 button {
-  background-color: #64B5F6; /* Lighter shade of blue */
+  background-color: #ADD8E6; /* Light blue color */
   color: #2E3C4A; /* Darker shade of gray */
   border: none;
   padding: 12px 20px;
@@ -77,7 +86,7 @@ button {
 }
 
 button:hover {
-  background-color: #2196F3; /* Original blue color on hover */
+  background-color: #64B5F6; /* Light blue color on hover */
   transform: scale(1.05);
 }
 
@@ -96,7 +105,7 @@ button:hover {
 
 .progress-bar div {
   height: 100%;
-  background-color: #2196F3; /* Changed color to match Telegram's theme */
+  background-color: #64B5F6; /* Changed color to match light blue theme */
   width: 0;
   transition: width 0.5s;
 }
@@ -104,7 +113,7 @@ button:hover {
 #progressText {
   margin-top: 15px;
   font-weight: bold;
-  color: #2196F3; /* Changed color to match Telegram's theme */
+  color: #64B5F6; /* Changed color to match light blue theme */
 }
 
 .key-item {
@@ -129,20 +138,4 @@ button:hover {
   padding: 10px 20px;
   color: white;
   font-size: 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
-  animation: pulse 1.5s infinite;
-}
-
-.copyKeyBtn:hover {
-  background-color: #2B8D44;
-  transform: scale(1.05);
-}
-
-.footer {
-  margin-top: 25px;
-  font-size: 14px;
-  color: #2196F3; /* Changed color to match Telegram's theme */
-  animation: fadeIn 2s ease;
-}
+  border-radius: 8
