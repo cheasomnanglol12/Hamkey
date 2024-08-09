@@ -19,8 +19,7 @@ body {
 }
 
 .container {
-    background: url('jpgtopngconverter-com.png') no-repeat center center;
-    background-size: cover;
+    background: #FFFFFF;
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 30px;
@@ -63,8 +62,6 @@ select {
 }
 
 button {
-    background: url('path/to/your/button-image.png') no-repeat center center;
-    background-size: cover;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -214,4 +211,10 @@ button:hover {
     background-size: contain;
     background-repeat: no-repeat;
     display: inline-block;
+}
+
+/* Adding Icons to Buttons */
+#telegramChannelBtn .icon,
+#creatorChannelBtn .icon {
+    margin-right: 8px; /* space between icon and text */
 }
