@@ -71,6 +71,9 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
     animation: pulse 1.5s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:hover {
@@ -159,6 +162,9 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
     animation: pulse 1.5s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #telegramChannelBtn:hover {
@@ -176,6 +182,9 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
     animation: pulse 1.5s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #creatorChannelBtn:hover {
@@ -202,4 +211,15 @@ button:hover {
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.02); }
+}
+
+/* Icon Styling */
+.icon {
+    width: 24px;
+    height: 24px;
+    background-image: url('jpgtopngconverter-com.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-right: 8px; /* Space between icon and text */
 }
