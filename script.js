@@ -173,7 +173,7 @@ document.getElementById('generateMoreBtn').addEventListener('click', () => {
 });
 
 document.getElementById('creatorChannelBtn').addEventListener('click', () => {
-    window.open('https://t.me/yoyoyoyoyoyo10011', '_blank');
+    window.open('https://cdpt.in/NDQ0NDYzMA==', '_blank');
 });
 
 telegramChannelBtn.addEventListener('click', () => {
