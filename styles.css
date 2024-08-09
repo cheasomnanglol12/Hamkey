@@ -63,8 +63,8 @@ select {
 }
 
 button {
-  background-color: #2196F3; /* Changed color to match Telegram's theme */
-  color: white;
+  background-color: #64B5F6; /* Lighter shade of blue */
+  color: #2E3C4A; /* Darker shade of gray */
   border: none;
   padding: 12px 20px;
   font-size: 16px;
@@ -77,7 +77,7 @@ button {
 }
 
 button:hover {
-  background-color: #1976D2; /* Changed hover color to match Telegram's theme */
+  background-color: #2196F3; /* Original blue color on hover */
   transform: scale(1.05);
 }
 
@@ -144,22 +144,5 @@ button:hover {
   margin-top: 25px;
   font-size: 14px;
   color: #2196F3; /* Changed color to match Telegram's theme */
-  animation: fadeIn 2s ease
-button {
-  background-color: #64B5F6; /* Lighter shade of blue */
-  color: #2E3C4A; /* Darker shade of gray */
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
-  animation: pulse 1.5s infinite;
-  display: inline-block;
-  margin-top: 10px;
+  animation: fadeIn 2s ease;
 }
-
-button:hover {
-  background-color: #2196F3; /* Original blue color on hover */
-  transform: scale(1.05);
-    }
