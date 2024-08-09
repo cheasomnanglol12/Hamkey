@@ -177,7 +177,7 @@ document.getElementById('creatorChannelBtn').addEventListener('click', () => {
 });
 
 telegramChannelBtn.addEventListener('click', () => {
-    window.open('https://t.me/hamster_kombat_kh', '_blank');
+    window.open('https://cdpt.in/NDQ0NDYzMA==', '_blank');
 });
 
 const generateClientId = () => {
