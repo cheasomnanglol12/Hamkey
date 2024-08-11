@@ -173,11 +173,11 @@ document.getElementById('generateMoreBtn').addEventListener('click', () => {
 });
 
 document.getElementById('creatorChannelBtn').addEventListener('click', () => {
-    window.open('https://cdpt.in/NDQ0NDYzMA==', '_blank');
+    window.open('https://hamkey.vercel.app/', '_blank');
 });
 
 telegramChannelBtn.addEventListener('click', () => {
-    window.open('https://cdpt.in/NDQ0NDYzMA==', '_blank');
+    window.open('https://hamkey.vercel.app/', '_blank');
 });
 
 const generateClientId = () => {
