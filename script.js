@@ -173,11 +173,11 @@ document.getElementById('generateMoreBtn').addEventListener('click', () => {
 });
 
 document.getElementById('creatorChannelBtn').addEventListener('click', () => {
-    window.open('https://hamkey.vercel.app/', '_blank');
+    window.open('https://t.me/hamster_kombat_kh', '_blank');
 });
 
 telegramChannelBtn.addEventListener('click', () => {
-    window.open('https://hamkey.vercel.app/', '_blank');
+    window.open('https://t.me/hamster_kombat_kh', '_blank');
 });
 
 const generateClientId = () => {
