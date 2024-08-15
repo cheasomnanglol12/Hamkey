@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamster Kombat codes Generator</title>
+    <title>Hamster Kombat Codes Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>HAMKEYGEN KALIP🔑🐹</h1>
+        <h1>Hamster Kombat Key Generator 🐹🔑</h1>
         <div class="form-group">
-            <label for="gameSelect">Select Game</label>
+            <label for="gameSelect">Select Game:</label>
             <select id="gameSelect">
                 <option value="1">Riding Extreme 3D</option>
                 <option value="2">Chain Cube 2048</option>
@@ -19,18 +19,23 @@
             </select>
         </div>
         <div class="form-group">
-            <label id="keyCountLabel" for="keyCountSelect">Number of keys:</label>
+            <label id="keyCountLabel" for="keyCountSelect">Number of Keys:</label>
             <select id="keyCountSelect">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                
                 
             </select>
         </div>
         <button id="startBtn">Generate Keys</button>
+
         <div id="progressContainer" class="hidden">
             <div class="progress-bar">
                 <div id="progressBar"></div>
@@ -38,24 +43,19 @@
             <div id="progressText">0%</div>
             <div id="progressLog">Starting...</div>
         </div>
+
         <div id="keyContainer" class="hidden">
-            <h3 id="generatedKeysTitle" class="hidden">Generated Keys:</h3>
+            <h3 id="generatedKeysTitle">Generated Keys:</h3>
             <div id="keysList"></div>
             <button id="copyAllBtn" class="hidden">Copy All Keys</button>
             <div id="copyStatus" class="hidden">Copied!</div>
             <button id="generateMoreBtn">Generate More Keys</button>
         </div>
+
         <div class="footer">
-            <p>You can get keys without play games just wait 1 - 2mins after click generate 🐹🔑</p>
-            <button id="creatorChannelBtn">
-                <span class="icon"></span>
-                Contact Creator🔑
-            </button>
-            <br><br>
-            <button id="telegramChannelBtn">
-                <span class="icon"></span>
-                Check out Our Group🐹
-            </button>
+            <p>Keys will be generated within 1-2 minutes after clicking "Generate Keys".</p>
+            <button id="creatorChannelBtn">Contact Creator 🔑</button>
+            <button id="telegramChannelBtn">Join Our Group 🐹</button>
         </div>
     </div>
     <script src="script.js"></script>
