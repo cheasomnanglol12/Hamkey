@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html amp lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <title>Hamster Kombat Codes Generator</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8998658837637816" crossorigin="anonymous"></script>
+    <!-- AMP Auto Ads Script -->
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
 </head>
 <body>
     <div class="container">
@@ -62,15 +65,8 @@
         <button id="generateMoreBtn" class="hidden">Generate More Codes</button>
         <p id="copyStatus" class="hidden">Codes Copied to Clipboard!</p>
 
-        <!-- Google AdSense Ad Placement -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-8998658837637816"
-                data-ad-slot="9142198394"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-        </div>
+        <!-- AMP Auto Ads Placement -->
+        <amp-auto-ads type="adsense" data-ad-client="ca-pub-8998658837637816"></amp-auto-ads>
         
         <div class="footer">
             <p>Codes Will be generated within 1-2 minutes after clicking "Generate Codes"🐹🔑</p>
@@ -79,9 +75,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Initialize Google AdSense ads
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
 </body>
 </html>
