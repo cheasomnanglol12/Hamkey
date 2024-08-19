@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const key = await generateKey(clientToken, game.promoId);
-                updateProgress(100 / keyCount, 'Generating key...');
+                updateProgress(100 / keyCount, 'Generating codes...');
                 return key;
             } catch (error) {
                 alert(`Failed to generate key: ${error.message}`);
