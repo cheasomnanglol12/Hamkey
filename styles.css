@@ -121,6 +121,15 @@ select:focus, button:focus {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
 }
 
+/* Adjusting image size within key items */
+.key-item img {
+    max-width: 60px; /* Limit the image width */
+    max-height: 60px; /* Limit the image height */
+    object-fit: cover; /* Ensure the image fits within the bounds */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Spacing between image and text */
+}
+
 .key-item input {
     border: none;
     background: #3a3a3a; /* Darker input background */
