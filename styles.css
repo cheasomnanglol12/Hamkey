@@ -1,189 +1,172 @@
+/* General Styles */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
-.container {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-}
-
-h1 {
-    margin-bottom: 25px;
-    font-size: 24px;
-    color: #007bff;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.game-option {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s;
-}
-
-.game-option img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.game-option p {
-    font-weight: 500;
-    color: #555;
-}
-
-.game-option:hover, .game-option.selected {
-    transform: scale(1.05);
-    border-color: #007bff;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #555;
-}
-
-.key-slider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.key-slider input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 5px;
-    background: #ddd;
-    outline: none;
-    transition: background 0.3s;
-}
-
-.key-slider input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
+/* Spinner Styles */
+.spinner {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.2); /* Light border */
+    border-top: 8px solid #76c7c0; /* Accent color */
     border-radius: 50%;
-    background: #007bff;
-    cursor: pointer;
-    transition: background 0.3s;
+    animation: spin 1s linear infinite;
+    z-index: 9999;
 }
 
-.key-slider input[type="range"]:hover::-webkit-slider-thumb {
-    background: #0056b3;
+.spinner::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    background: rgba(118, 199, 192, 0.4); /* Slightly transparent accent */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
-#keyValue {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007bff;
+/* Main Container */
+.container {
+    background-color: #1e1e1e; /* Darker background for container */
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
+    padding: 20px;
+    width: 300px;
+    text-align: center;
 }
 
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
+/* Title */
+h1 {
+    font-size: 26px;
+    color: #76c7c0; /* Accent color for title */
+    margin-bottom: 20px;
+}
+
+/* Select and Button Styles */
+select, button {
+    border: 1px solid #444; /* Dark border */
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
     font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #2c2c2c; /* Darker background */
+    color: #e0e0e0; /* Light text */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+select:focus, button:focus {
+    outline: none;
+    border-color: #76c7c0; /* Accent border on focus */
+}
+
+/* Progress Bar */
+#progressContainer {
     margin-top: 20px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-.hidden {
-    display: none;
-}
-
 .progress-bar {
-    background-color: #f5f7fa;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 25px;
-    height: 35px;
+    height: 12px;
+    background-color: #333; /* Darker background */
+    border-radius: 6px;
     position: relative;
+    overflow: hidden;
 }
 
-.progress-bar div {
+.progress-bar::before {
+    content: '';
+    display: block;
     height: 100%;
-    background-color: #007bff;
-    width: 0;
-    transition: width 0.5s;
+    background-color: #76c7c0; /* Accent color for progress */
+    transition: width 0.4s;
 }
 
 #progressText {
-    margin-top: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#progressLog {
+    color: #888; /* Subtle text color for log */
+    margin-top: 5px;
+}
+
+/* Keys Container */
+#keyContainer {
+    margin-top: 20px;
 }
 
 .key-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #2c2c2c; /* Darker background for key item */
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
 }
 
 .key-item input {
+    border: none;
+    background: #3a3a3a; /* Darker input background */
+    color: #e0e0e0; /* Light text */
     flex: 1;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-right: 12px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2); /* Subtle inner shadow */
 }
 
-.copyKeyBtn {
-    background-color: #28a745;
+.key-item button {
+    background-color: #76c7c0; /* Accent color for button */
+    color: #ffffff;
     border: none;
-    padding: 12px 20px;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
     transition: background-color 0.3s;
 }
 
-.copyKeyBtn:hover {
-    background-color: #218838;
+.key-item button:hover {
+    background-color: #5da7a3; /* Slightly darker on hover */
 }
 
-.footer {
-    margin-top: 25px;
-    font-size: 14px;
-    color: #777;
-}
-
+/* Copy Status */
 #copyStatus {
-    margin-top: 15px;
-    color: green;
+    color: #76c7c0; /* Accent color for status */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.5; }
 }
