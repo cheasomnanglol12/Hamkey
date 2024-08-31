@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamster codes Generator</title>
+    <title>Hamster Key Generator</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Hamster codes Generator</h1>
+        <h1>Hamster Key Generator</h1>
         <div id="gameSelectContainer" class="grid-container">
+            <div class="game-option" data-game="12">
+            <img src="https://cdn.hamsterkombat.io/gangs_wars/image.webp" alt="Zoopolis"">
+            <p>Gangs Wars</p>
+            </div>
+            <div class="game-option" data-game="11">
+            <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis"">
+            <p>Zoopolis</p>
+            </div>
+            <div class="game-option" data-game="10">
+            <img src="https://cdn.hamsterkombat.io/cafe_dash/image.webp" alt="CafeDash"">
+            <p>Cafe Dash</p>
+            </div>
+          <div class="game-option" data-game="9">
+            <img src="https://cdn.hamsterkombat.io/mud_racing/image.webp" alt="Polysphere">
+            <p>Mud Racing</p>
+            </div>
+            <div class="game-option" data-game="8">
+            <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Polysphere">
+            <p>Mow and Trim</p>
+            </div>
+            <div class="game-option" data-game="7">
+            <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
+            <p>Polysphere</p>
+            </div>
             <div class="game-option" data-game="6">
                 <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
                 <p>Twerk Race 3D</p>
@@ -18,10 +42,6 @@
             <div class="game-option" data-game="5">
                 <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
                 <p>Merge Away</p>
-            </div>
-            <div class="game-option" data-game="3">
-                <img src="https://cdn.hamsterkombat.io/my_clone_army/image.webp" alt="My Clone Army">
-                <p>My Clone Army</p>
             </div>
             <div class="game-option" data-game="2">
                 <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
@@ -31,20 +51,16 @@
                 <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
                 <p>Train Miner</p>
             </div>
-            <div class="game-option" data-game="1">
-                <img src="https://cdn.hamsterkombat.io/bikeride/image.webp" alt="Bike Ride 3D">
-                <p>Bike Ride 3D</p>
-            </div>
         </div>
 
         <div class="form-group hidden" id="keyCountGroup">
             <label for="keyCountSelect">Select Number of Keys:</label>
             <div id="keyCountSelect" class="key-slider">
-                <input type="range" min="1" max="10" value="1" id="keyRange">
+                <input type="range" min="1" max="4" value="1" id="keyRange">
                 <span id="keyValue">1</span>
             </div>
         </div>
-        <button id="startBtn" class="hidden">Generate Codes</button>
+        <button id="startBtn" class="hidden">Generate Keys</button>
 
         <div id="progressContainer" class="hidden">
             <div class="progress-bar">
@@ -55,19 +71,19 @@
         </div>
 
         <div id="keyContainer" class="hidden">
-            <h2 id="generatedKeysTitle" class="hidden">Generated Codes</h2>
+            <h2 id="generatedKeysTitle" class="hidden">Generated Keys</h2>
             <div id="keysList"></div>
             <button id="copyAllBtn" class="hidden">Copy All Keys</button>
         </div>
 
-        <p id="keyCountLabel">Number of Codes:</p>
+        <p id="keyCountLabel">Number of keys:</p>
 
-        <button id="generateMoreBtn" class="hidden">Generate More Codes</button>
-        <p id="copyStatus" class="hidden">Codes copied to clipboard!</p>
+        <button id="generateMoreBtn" class="hidden">Generate More Keys</button>
+        <p id="copyStatus" class="hidden">Keys copied to clipboard!</p>
         
         <div class="footer">
-            <p>Codes Will be generated within 1-2 minutes after clicking "Generate Codes"🐹🔑</p>
-            <button id="sourceCode">Join our group 🐹 🔑</button>
+            <p>រង់​ចាំពីរបីនាទីដើម្បីទទួលkeys</p>
+            <button id="Join our group">Source code</button>
         </div>
     </div>
 
