@@ -41,6 +41,48 @@ document.addEventListener('DOMContentLoaded', () => {
             promoId: '61308365-9d16-4040-8bb0-2f4a4c69074c',
             timing: 30000, // 30 seconds
             attempts: 20,
+        },
+        7: {
+            name: 'Polysphere',
+            appToken: '2aaf5aee-2cbc-47ec-8a3f-0962cc14bc71',
+            promoId: '2aaf5aee-2cbc-47ec-8a3f-0962cc14bc71',
+            timing: 20000, // 20 seconds
+            attempts: 20,
+        },
+        8: {
+            name: 'Mow and Trim',
+            appToken: 'ef319a80-949a-492e-8ee0-424fb5fc20a6',
+            promoId: 'ef319a80-949a-492e-8ee0-424fb5fc20a6',
+            timing: 20000, // 20 seconds
+            attempts: 20,
+        },
+        9: {
+            name: 'Mud Racing',
+            appToken: '8814a785-97fb-4177-9193-ca4180ff9da8',
+            promoId: '8814a785-97fb-4177-9193-ca4180ff9da8',
+            timing: 20000, // 20 seconds
+            attempts: 20,
+        },
+        10: {
+            name: 'Cafe Dash',
+            appToken: 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
+            promoId: 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
+            timing: 20000, // 20 seconds
+            attempts: 20,
+        },
+        11: {
+            name: 'Zoopolis',
+            appToken: 'b2436c89-e0aa-4aed-8046-9b0515e1c46b',
+            promoId: 'b2436c89-e0aa-4aed-8046-9b0515e1c46b',
+            timing: 20000, // 20 seconds
+            attempts: 20,
+        },
+        12: {
+            name: 'Gangs Wars',
+            appToken: 'b6de60a0-e030-48bb-a551-548372493523',
+            promoId: 'c7821fa7-6632-482c-9635-2bd5798585f9',
+            timing: 40000, // 40 seconds
+            attempts: 30,
         }
     };
 
@@ -64,16 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedGame = null;
 
-    gameOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            gameOptions.forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            selectedGame = option.dataset.game;
-
-            keyCountGroup.classList.remove('hidden');
-            startBtn.classList.remove('hidden');
-        });
+    sourceCode.addEventListener('click', () => {
+        window.open('https://github.com/ShafiqSadat/HamsterKeyGenWeb', '_blank');
     });
+    
+gameOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        gameOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedGame = option.dataset.game;
+
+        keyCountGroup.classList.remove('hidden');
+        startBtn.classList.remove('hidden');
+        
+        // Smooth scroll to the key count group
+        keyCountGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+});
 
     keyRange.addEventListener('input', () => {
         keyValue.innerText = keyRange.value;
@@ -136,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const key = await generateKey(clientToken, game.promoId);
-                updateProgress(100 / keyCount, 'Generating codes...');
+                updateProgress(100 / keyCount, 'Generating key...');
                 return key;
             } catch (error) {
                 alert(`Failed to generate key: ${error.message}`);
