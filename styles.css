@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: #f5f7fa;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,10 +9,37 @@ body {
     margin: 0;
 }
 
-.container {
-    background: #1e1e1e;
+/* Add a max height and enable scrolling for the game options */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+    max-height: 300px; /* Adjust this height based on your layout needs */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.game-option {
+    border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+/* Ensure the selected game stands out */
+.game-option.selected {
+    transform: scale(1.05);
+    border-color: #007bff;
+    background-color: #f0f8ff; /* Optional: Slight background color change */
+}
+
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
     max-width: 400px;
     width: 100%;
@@ -22,24 +49,9 @@ body {
 h1 {
     margin-bottom: 25px;
     font-size: 24px;
-    color: #bb86fc;
+    color: #007bff;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.game-option {
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s;
-}
 
 .game-option img {
     width: 100%;
@@ -49,12 +61,12 @@ h1 {
 
 .game-option p {
     font-weight: 500;
-    color: #ccc;
+    color: #555;
 }
 
 .game-option:hover, .game-option.selected {
     transform: scale(1.05);
-    border-color: #bb86fc;
+    border-color: #007bff;
 }
 
 .form-group {
@@ -66,7 +78,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: #ccc;
+    color: #555;
 }
 
 .key-slider {
@@ -80,7 +92,7 @@ label {
     width: 100%;
     height: 8px;
     border-radius: 5px;
-    background: #333;
+    background: #ddd;
     outline: none;
     transition: background 0.3s;
 }
@@ -91,24 +103,24 @@ label {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #bb86fc;
+    background: #007bff;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 .key-slider input[type="range"]:hover::-webkit-slider-thumb {
-    background: #9a66cc;
+    background: #0056b3;
 }
 
 #keyValue {
     font-size: 18px;
     font-weight: bold;
-    color: #bb86fc;
+    color: #007bff;
 }
 
 button {
-    background-color: #bb86fc;
-    color: #121212;
+    background-color: #007bff;
+    color: white;
     border: none;
     padding: 12px 20px;
     font-size: 16px;
@@ -119,7 +131,7 @@ button {
 }
 
 button:hover {
-    background-color: #9a66cc;
+    background-color: #0056b3;
 }
 
 .hidden {
@@ -127,7 +139,7 @@ button:hover {
 }
 
 .progress-bar {
-    background-color: #333;
+    background-color: #f5f7fa;
     border-radius: 8px;
     overflow: hidden;
     margin-top: 25px;
@@ -137,7 +149,7 @@ button:hover {
 
 .progress-bar div {
     height: 100%;
-    background-color: #bb86fc;
+    background-color: #007bff;
     width: 0;
     transition: width 0.5s;
 }
@@ -157,18 +169,16 @@ button:hover {
     flex: 1;
     padding: 12px;
     font-size: 16px;
-    border: 1px solid #444;
+    border: 1px solid #ccc;
     border-radius: 8px;
     margin-right: 12px;
-    background: #222;
-    color: #e0e0e0;
 }
 
 .copyKeyBtn {
-    background-color: #03dac6;
+    background-color: #28a745;
     border: none;
     padding: 12px 20px;
-    color: #121212;
+    color: white;
     font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
@@ -176,16 +186,16 @@ button:hover {
 }
 
 .copyKeyBtn:hover {
-    background-color: #03a89e;
+    background-color: #218838;
 }
 
 .footer {
     margin-top: 25px;
     font-size: 14px;
-    color: #888;
+    color: #777;
 }
 
 #copyStatus {
     margin-top: 15px;
-    color: #03dac6;
+    color: green;
 }
